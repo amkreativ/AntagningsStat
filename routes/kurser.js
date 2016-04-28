@@ -1,8 +1,10 @@
 var jsonfile = require('jsonfile');
 var mongoose = require('mongoose');
+//var env = require('node-env-file');
+//env(__dirname + '/.env');
 
-var user = 'DZ7VmVw3XdwuLGtB';
-var password = 'RpQH3z2qA1bqN2fz';
+var user = process.env.MONGO_USER;
+var password = process.env.MONGO_PASSWORD;
 
 var ht15_path = './data/ht_15.json';
 var ht16_path = './data/ht_16.json';
@@ -48,24 +50,38 @@ createData = function(){
 		var obj = {
 
 		};
-		for (var i = ht15.length - 1; i >= 0; i--) {
-			var kod = ht15[i].kod;
-			obj[kod] = {
-				ht15: ht15[i].sokande_total
-			}
 
-		}
+		var recentRepeat = 0;
+		var prevObject = {};
 		for (var i = ht16.length - 1; i >= 0; i--) {
 			var kod = ht16[i].kod;
-			if (obj[kod] !== null) {
-				console.log(kod);
-				console.log(obj[kod]);
-				obj[kod].ht16 = ht16[i].sokande_total
-				console.log("AAAA");
-				count++;
+			obj[kod] = {
+				namn_ht16: ht16[i].namn,
+				sokande_total_ht16: ht16[i].sokande_total,
+				kod_ht16: ht16[i].kod
+
+
+
+			};
+			for (var j = ht15.length - 1; j >= 0; j--) {
+				if (ht16[i].namn == ht15[j].namn && ht16[i].hogskola == ht15[j].hogskola) {
+					count++;
+
+
+					obj[kod].namn_ht15 = ht15[j].namn;
+					obj[kod].sokande_total_ht15 = ht15[j].sokande_total;
+					obj[kod].kod_ht15 = ht15[j].kod;
+
+				}
 			}
+
+			prevObject = obj[kod];
+
 		}
+
+		
 		console.log(obj);
+
 		console.log(count);
 
 
@@ -93,4 +109,6 @@ exports.visa = function(req, res) {
 exports.skapa = function(req, res) {
 	createData();
     res.send("meme");
+    console.log(user + " " + password);
+    console.log(__dirname + '/.env');
 };

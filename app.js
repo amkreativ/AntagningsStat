@@ -1,6 +1,9 @@
 var express = require('express');
+var env = require('node-env-file');
+
 var kurser = require('./routes/kurser');
 var app = express();
+
 
 var port = process.env.PORT || 3000;
 

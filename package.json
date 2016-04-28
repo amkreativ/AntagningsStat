@@ -44,6 +44,7 @@
   "dependencies": {
     "express": "^4.13.4",
     "jsonfile": "^2.3.0",
-    "mongoose": "^4.4.14"
+    "mongoose": "^4.4.14",
+    "node-env-file": "^0.1.8"
   }
 }
