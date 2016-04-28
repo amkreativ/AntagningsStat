@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "express": "^4.13.4",
+    "jsonfile": "^2.3.0",
     "mongoose": "^4.4.14"
   }
 }
