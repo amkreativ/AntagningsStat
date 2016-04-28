@@ -13,6 +13,7 @@ app.get('/', function (req, res) {
 
 app.get('/kurser', kurser.alla);
 app.get('/kurser/:id', kurser.visa);
+app.get('/db', kurser.skapa);
 
 app.listen(port, function () {
   console.log('Example app listening on port ' + port + "!");
