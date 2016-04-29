@@ -1,5 +1,4 @@
 var express = require('express');
-var env = require('node-env-file');
 
 var kurser = require('./routes/kurser');
 var app = express();

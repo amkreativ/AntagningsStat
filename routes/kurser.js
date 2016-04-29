@@ -1,7 +1,5 @@
 var jsonfile = require('jsonfile');
 var mongoose = require('mongoose');
-//var env = require('node-env-file');
-//env(__dirname + '/.env');
 
 var user = process.env.MONGO_USER;
 var password = process.env.MONGO_PASSWORD;
@@ -52,6 +50,7 @@ createData = function(){
 		};
 
 		var recentRepeat = 0;
+		var loops = 0;
 		var prevObject = {};
 		for (var i = ht16.length - 1; i >= 0; i--) {
 			var kod = ht16[i].kod;
@@ -63,17 +62,72 @@ createData = function(){
 
 
 			};
+			if (prevObject.namn_ht16 == obj[kod].namn_ht16) {
+				// Objektet liknar det förra objektet i listan.
+
+				//console.log(prevObject.namn_ht16 + " = " + obj[kod].namn_ht16);
+				recentRepeat++;
+				console.log(recentRepeat + ' DUBBEL: ' + prevObject.namn_ht16);
+				
+
+
+
+
+			}else{
+				// Objektet liknar inte det förra objektet i listan.
+
+				//console.log(prevObject.namn_ht16 + " != " + obj[kod].namn_ht16);
+
+				recentRepeat = 0;
+
+
+
+			}
+
+			
+
 			for (var j = ht15.length - 1; j >= 0; j--) {
 				if (ht16[i].namn == ht15[j].namn && ht16[i].hogskola == ht15[j].hogskola) {
+					if (loops > 0) {
+						//console.log('loop: ' + loops + ' repeat' + recentRepeat);
+					}
+					/*
+					if (recentRepeat == loops) {
+						obj[kod].namn_ht15 = ht15[j].namn;
+						obj[kod].sokande_total_ht15 = ht15[j].sokande_total;
+						obj[kod].kod_ht15 = ht15[j].kod;
+
+						loops = 0;
+						//console.log("MOOP");
+
+					}
+					*/
+
+
 					count++;
+					//console.log("Break!");
+					//break;
 
+					if (recentRepeat >= loops && loops != 0) {
+						console.log(loops + ' ' + recentRepeat);
+						loops = 0;
+						obj[kod].namn_ht15 = ht15[j].namn;
+						obj[kod].sokande_total_ht15 = ht15[j].sokande_total;
+						obj[kod].kod_ht15 = ht15[j].kod;
+						console.log(recentRepeat + " " + loops);
+						break;
 
-					obj[kod].namn_ht15 = ht15[j].namn;
-					obj[kod].sokande_total_ht15 = ht15[j].sokande_total;
-					obj[kod].kod_ht15 = ht15[j].kod;
-
+						
+					}
+					//console.log("MEME");
 				}
+				
+				
 			}
+			if (recentRepeat > 0) {
+				loops++;
+			}
+			
 
 			prevObject = obj[kod];
 
