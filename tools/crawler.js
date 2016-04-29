@@ -2,7 +2,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var jsonfile = require('jsonfile')
  
-var file = './tmp/dataset.json'
+var file = './data/dataset.json'
 
 var memes = {memes:[1,2,3,4]}
 var memes2 = JSON.stringify(memes);

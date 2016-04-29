@@ -46,6 +46,7 @@
     "domhandler": "^2.3.0",
     "express": "^4.13.4",
     "jsonfile": "^2.3.0",
+    "lodash": "^4.11.1",
     "mongoose": "^4.4.14",
     "node-env-file": "^0.1.8"
   }
