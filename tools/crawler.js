@@ -1,8 +1,8 @@
 var request = require('request');
 var cheerio = require('cheerio');
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile');
  
-var file = './data/dataset.json'
+var file = './data/dataset2.json'
 
 var memes = {memes:[1,2,3,4]}
 var memes2 = JSON.stringify(memes);
@@ -91,7 +91,7 @@ var index = function(){
 					}else if(obj.studietakt.startsWith('Kvart')){obj.studietakt = '25%'}
 			       	var weww = {}
 			       	weww[obj.kod] = obj;
-			       	totalObject['dataset'].push(weww);
+			       	totalObject['dataset'].push(obj);
 			       	console.log(obj.namn);
 			       	objNum++;
 			    	
